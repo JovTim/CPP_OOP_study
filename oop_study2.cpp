@@ -56,7 +56,7 @@ class Customer : public Calculation{
 
         void display_cart();
 
-        void checker();
+        void checker(std::string item);
 
         void store_buy();
 
@@ -77,14 +77,37 @@ void Customer::display_cart(){
     }
 }
 
-/*
-void Customer::checker(){
 
+void Customer::checker(std::string item){
+    if (Store().items.count(item) > 0){
+        if (cart.count(item) > 0){
+            cart[item] += 1;
+        }
+        else{
+            cart[item] = 1;
+        }
+    }
+    else{
+        std::cout << "Item no available!" << std::endl;
+    }
 }
-*/
+
 
 void Customer::store_buy(){
-    
+    Store().display_items();
+    while (true){
+        std::string user;
+        user = user_pick();
+        if (user == "end"){
+
+        }
+        else{
+            system("cls");
+            Store().display_items();
+            std::cout << std::endl;
+        }
+    }
+
 }
 
 
@@ -94,7 +117,7 @@ int main(){
     Store obj;
     Customer customer("loyalty", 100.0);
 
-    obj.display_items();
+    customer.store_buy();
     
     return 0;
 }
