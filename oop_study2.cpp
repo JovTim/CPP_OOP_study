@@ -27,19 +27,22 @@ class Calculation : public Store{
 
     public:
         std::map<std::string, int> total_cart;
-        void calculation();
+        void calculation(const std::map<std::string, int>& cart);
 
 };
 
-/*
-void Calculation::calculation(){
+
+void Calculation::calculation(const std::map<std::string, int>& cart){
     total_price = 0;
     for (auto item: cart){
         std::string product = item.first;
-        total_cart[product] = cart[product] * items[product];
+        int quantity = item.second;
+
+        total_cart[product] = quantity * items[product];
+        total_price += total_cart[product];
     }
 }
-*/
+
 
 class Customer : public Calculation{
     public:
@@ -99,6 +102,7 @@ void Customer::store_buy(){
         std::string user;
         user = user_pick();
         if (user == "end"){
+            calculation(cart);
 
         }
         else{
