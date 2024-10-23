@@ -27,7 +27,12 @@ class Calculation : public Store{
 
     public:
         std::map<std::string, int> total_cart;
+
         void calculation(const std::map<std::string, int>& cart);
+
+        void total_display();
+
+        void change(float& money);
 
 };
 
@@ -40,6 +45,24 @@ void Calculation::calculation(const std::map<std::string, int>& cart){
 
         total_cart[product] = quantity * items[product];
         total_price += total_cart[product];
+    }
+}
+
+void Calculation::total_display(){
+    std::cout << "------RECEIPT------" << std::endl;
+    for (auto item: total_cart){
+        std::cout << item.first << " - " << item.second << std::endl;
+    }
+    std::cout << "TOTAL AMOUNT: " << total_price << std::endl;
+}
+
+void Calculation::change(float& money){
+    if (money >= total_price){
+        std::cout << "Change: " << money - total_price << std::endl;
+    }
+    else{
+        system("cls");
+        std::cout << "NOT ENOUGH MONEY!" << std::endl;
     }
 }
 
@@ -74,7 +97,7 @@ std::string Customer::user_pick(){
 }
 
 void Customer::display_cart(){
-    std::cout << "------Your Items------";
+    std::cout << "------Your Items------" << std::endl;
     for (auto item: cart){
         std::cout << item.first << " - " << item.second << "\n";
     }
@@ -103,18 +126,20 @@ void Customer::store_buy(){
         user = user_pick();
         if (user == "end"){
             calculation(cart);
+            total_display();
+            change(money);
 
         }
         else{
             system("cls");
             Store().display_items();
+            checker(user);
+            display_cart();
             std::cout << std::endl;
         }
     }
 
 }
-
-
 
 
 int main(){
