@@ -120,6 +120,7 @@ void Customer::checker(std::string item){
 
 
 void Customer::store_buy(){
+    system("cls");
     Store().display_items();
     while (true){
         std::string user;
@@ -128,6 +129,7 @@ void Customer::store_buy(){
             calculation(cart);
             total_display();
             change(money);
+            break;
 
         }
         else{
@@ -140,7 +142,6 @@ void Customer::store_buy(){
     }
 
 }
-
 
 int main(){
     Store obj;
